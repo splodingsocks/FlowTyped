@@ -71,7 +71,7 @@ declare module '@reach/router' {
   |}>;
 
   declare export type LinkProps<State> = {
-    ...$Shape<HTMLAnchorElement>,
+    ...React$ElementProps<'a'>,
     children: React$Node,
     innerRef?: React$Ref<HTMLAnchorElement>,
     getProps?: (props: {
