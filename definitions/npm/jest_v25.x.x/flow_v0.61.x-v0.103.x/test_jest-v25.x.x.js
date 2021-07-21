@@ -552,6 +552,7 @@ expect(wrapper).toHaveDisplayName(true);
   expect(element).toBeDisabled();
   expect(element).toBeEnabled();
   expect(element).toBeEmpty();
+  expect(element).toBeEmptyDOMElement();
   expect(element).toBeInTheDocument();
   expect(element).toBeVisible();
   // $FlowExpectedError

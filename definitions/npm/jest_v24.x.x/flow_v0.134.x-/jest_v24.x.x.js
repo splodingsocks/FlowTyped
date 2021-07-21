@@ -227,6 +227,7 @@ type DomTestingLibraryType = {
  toBeInTheDocument(): void,
  toBeVisible(): void,
  toBeEmpty(): void,
+ toBeEmptyDOMElement(): void,
  toBeDisabled(): void,
  toBeEnabled(): void,
  toBeInvalid(): void,

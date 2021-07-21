@@ -230,11 +230,14 @@ type DomTestingLibraryType = {
    * @deprecated
    */
   toBeInTheDOM(container?: HTMLElement): void,
+    /**
+   * @deprecated
+   */
+  toBeEmpty(): void,
 
   // 4.x
   toBeInTheDocument(): void,
   toBeVisible(): void,
-  toBeEmpty(): void,
   toBeDisabled(): void,
   toBeEnabled(): void,
   toBeInvalid(): void,

@@ -218,6 +218,7 @@ type EnzymeMatchersType = {
 type DomTestingLibraryType = {
  toBeDisabled(): void,
  toBeEmpty(): void,
+ toBeEmptyDOMElement(): void,
  toBeInTheDocument(): void,
  toBeVisible(): void,
  toContainElement(element: HTMLElement | null): void,

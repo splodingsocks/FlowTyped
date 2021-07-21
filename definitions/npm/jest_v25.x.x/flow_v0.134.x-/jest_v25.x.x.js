@@ -220,15 +220,18 @@ type EnzymeMatchersType = {
 // DOM testing library extensions (jest-dom)
 // https://github.com/testing-library/jest-dom
 type DomTestingLibraryType = {
- /**
+  /**
   * @deprecated
   */
- toBeInTheDOM(container?: HTMLElement): void,
+  toBeInTheDOM(container?: HTMLElement): void,
+  /**
+   * @deprecated
+   */
+  toBeEmpty(): void,
 
  // 4.x
  toBeInTheDocument(): void,
  toBeVisible(): void,
- toBeEmpty(): void,
  toBeDisabled(): void,
  toBeEnabled(): void,
  toBeInvalid(): void,
@@ -250,6 +253,7 @@ type DomTestingLibraryType = {
  // 5.x
  toHaveDisplayValue(value: string | string[]): void,
  toBeChecked(): void,
+ toBeEmptyDOMElement(): void,
  ...
 };
 
