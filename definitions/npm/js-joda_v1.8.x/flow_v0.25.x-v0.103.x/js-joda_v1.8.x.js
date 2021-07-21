@@ -8,13 +8,13 @@ declare module 'js-joda' {
 		range(field: ChronoField): ValueRange;
 	}
 	declare class Temporal extends TemporalAccessor {}
-	declare class Instant extends Temporal {
+	declare class Instant extends Temporal implements TemporalAdjuster {
 		static from(TemporalAccessor): Instant;
 		static now(): Instant;
 		static ofEpochMilli(epochMilli: number): Instant;
 		static ofEpochSecond(epochSecond: number): Instant;
 		static parse(text: string): Instant;
-		adjustInto(temporal: Temporal): Temporal;
+		adjustInto(temporal: TemporalAdjuster): Temporal;
 		compareTo(otherInstant: Instant): number;
 		epochSecond(): number;
 		equals(otherInstant: any): boolean;
@@ -54,7 +54,7 @@ declare module 'js-joda' {
 		millis(): number;
 		zone(): any;
 	}
-	declare class DayOfWeek extends Temporal {
+	declare class DayOfWeek extends Temporal implements TemporalAdjuster {
 		static MONDAY: DayOfWeek;
 		static TUESDAY: DayOfWeek;
 		static WEDNESDAY: DayOfWeek;
@@ -200,7 +200,7 @@ declare module 'js-joda' {
 	declare class Chronology {
 		// TODO: this
 	}
-	declare class LocalTime extends Temporal {
+	declare class LocalTime extends Temporal implements TemporalAdjuster {
 		static MIN: LocalTime;
 		static MAX: LocalTime;
 		static MIDNIGHT: LocalTime;
@@ -288,7 +288,7 @@ declare module 'js-joda' {
 		static safeZero(value: number): number;
 		static verifyInt(value: number): void;
 	}
-	declare class Month extends Temporal {
+	declare class Month extends Temporal implements TemporalAdjuster {
 		static JANUARY: Month;
 		static FEBRUARY: Month;
 		static MARCH: Month;
@@ -304,7 +304,7 @@ declare module 'js-joda' {
 		static from(temporal: TemporalAccessor): Month;
 		static of(month: number): Month;
 		static values(): Array<Month>;
-		adjustInto(temporal: Temporal): Temporal;
+		adjustInto(temporal: TemporalAdjuster): Temporal;
 		firstDayOfYear(leapYear: boolean): number;
 		firstMonthOfQuarter(): Month;
 		get(field: ChronoField): number;
@@ -320,7 +320,7 @@ declare module 'js-joda' {
 		toString(): string;
 		value(): number;
 	}
-	declare class MonthDay extends Temporal {
+	declare class MonthDay extends Temporal implements TemporalAdjuster {
 		static from(temporal: TemporalAccessor): MonthDay;
 		static now(arg1?: ZoneId | Clock): MonthDay;
 		static of(monthOrNumber: Month | number, number?: number): MonthDay;
@@ -332,7 +332,7 @@ declare module 'js-joda' {
 			text: string,
 			formatter: DateTimeFormatter
 		): MonthDay;
-		adjustInto(temporal: Temporal): Temporal;
+		adjustInto(temporal: TemporalAdjuster): Temporal;
 		atYear(year: number): LocalDate;
 		compareTo(other: MonthDay): number;
 		dayOfMonth(): number;
@@ -441,8 +441,8 @@ declare module 'js-joda' {
 		static WEEK_BASED_YEARS: IsoFields;
 		static QUARTER_YEARS: IsoFields;
 	}
-	declare class ChronoLocalDate extends Temporal {
-		adjustInto(temporal: TemporalAdjuster): this;
+	declare class ChronoLocalDate extends Temporal implements TemporalAdjuster {
+		adjustInto(temporal: TemporalAdjuster): Temporal;
 		format(formatter: DateTimeFormatter): string;
 		isSupported(fieldOrUnit: ChronoField | TemporalUnit): boolean;
 	}
@@ -515,8 +515,8 @@ declare module 'js-joda' {
 		withYear(year: number): LocalDate;
 		year(): number;
 	}
-	declare class ChronoLocalDateTime extends Temporal {
-		adjustInto(temporal: any): any;
+	declare class ChronoLocalDateTime extends Temporal implements TemporalAdjuster {
+		adjustInto(temporal: TemporalAdjuster): Temporal;
 		chronology(): Chronology;
 		toEpochSecond(offset: ZoneOffset): number;
 		toInstant(offset: ZoneOffset): Instant;
@@ -652,8 +652,8 @@ declare module 'js-joda' {
 		withYears(years: number): Period;
 		years(): number;
 	}
-	declare class TemporalAdjuster {
-		adjustInto(temporal: Temporal): Temporal;
+	declare interface TemporalAdjuster {
+		adjustInto(temporal: TemporalAdjuster): Temporal;
 	}
 	declare class TemporalAdjusters {
 		static dayOfWeekInMonth(
@@ -771,7 +771,7 @@ declare module 'js-joda' {
 		static UTC: ZoneId;
 		static of(zoneId: string): ZoneId;
 	}
-	declare class ZoneOffset extends ZoneIdBase {
+	declare class ZoneOffset extends ZoneIdBase implements TemporalAdjuster {
 		static MAX_SECONDS: ZoneOffset;
 		static UTC: ZoneOffset;
 		static MIN: ZoneOffset;
@@ -786,7 +786,7 @@ declare module 'js-joda' {
 		): ZoneOffset;
 		static ofTotalMinutes(totalMinutes: number): ZoneOffset;
 		static ofTotalSeconds(totalSeconds: number): ZoneOffset;
-		adjustInto(temporal: Temporal): Temporal;
+		adjustInto(temporal: TemporalAdjuster): Temporal;
 		compareTo(other: ZoneOffset): number;
 		equals(obj: any): boolean;
 		get(field: ChronoField): number;
@@ -837,6 +837,7 @@ declare module 'js-joda' {
 			nanoOfSecond: number,
 			zone: ZoneId
 		): ZonedDateTime;
+		static of3(date: LocalDate, time: LocalTime, zone: ZoneId): ZonedDateTime;
 		static of8(
 			year: number,
 			month: number,

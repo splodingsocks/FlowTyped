@@ -808,7 +808,7 @@ declare module 'js-joda' {
 		offsetOfEpochMilli(epochMilli: number): ZoneOffset;
 		offsetOfInstant(instant: Instant): ZoneOffset;
 		offsetOfLocalDateTime(localDateTime: LocalDateTime): ZoneOffset;
-		_tzdbInfo: { [string]: string, ... };
+		_tzdbInfo: { [string]: string };
 	}
 	declare class ChronoZonedDateTime extends Temporal {
 		compareTo(other: ChronoZonedDateTime): number;
@@ -955,7 +955,6 @@ declare module 'js-joda' {
 	): {
 		toDate(): Date,
 		toEpochMilli(): number,
-		...
 	};
 
 	declare function use(plugin: Function): any;
